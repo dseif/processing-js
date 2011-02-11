@@ -7932,6 +7932,22 @@
       }
       return chars;
     };
+	/**
+     * The codePointAT() function returns the unicode value of the character at a given index of a string.
+     *
+     * @param  {int} idx         the index of the character
+	 * @return {String} code     the String containing the unicode value of the character
+     */
+	String.prototype.codePointAt = function (idx) {
+            var code = this.charCodeAt(idx);
+            var hi, low;
+            if (0xD800 <= code && code <= 0xDBFF) {
+                hi = code;
+                low = this.charCodeAt(idx + 1);
+                return ((hi - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;
+            }
+            return code;
+        };
     /**
      * The match() function matches a string with a regular expression, and returns the match as an
      * array. The first index is the matching expression, and array elements
